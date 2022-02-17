@@ -1,0 +1,29 @@
+###########################################
+# Syntax For EG25-lib
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+GsmParser	KEYWORD1
+GPSparser	KEYWORD1
+MQTT	KEYWORD1
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+
+setDebugMode	KEYWORD2
+setSerial	KEYWORD2
+initializeGsmModule	KEYWORD2
+initializeGpsModes	KEYWORD2
+setMqttHost	KEYWORD2
+mqttBegin	KEYWORD2
+getLatitude	KEYWORD2
+getLongitude	KEYWORD2
+getSpeedMph	KEYWORD2
+getSpeedKmh	KEYWORD2
+getSatelliteCount	KEYWORD2
+getAltitude	KEYWORD2
+getDegree	KEYWORD2
