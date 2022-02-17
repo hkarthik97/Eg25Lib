@@ -6,20 +6,14 @@
     "repository":
     {
       "type": "git",
-      "url": "https://github.com/username/hello-world.git"
+      "url": "https://github.com/hkarthik97/Eg25Lib"
     },
     "authors":
     [
       {
-        "name": "John Smith",
-        "email": "me@john-smith.com",
-        "url": "https://www.john-smith/contact"
-      },
-      {
-        "name": "Andrew Smith",
-        "email": "me@andrew-smith.com",
-        "url": "https://www.andrew-smith/contact",
-        "maintainer": true
+        "name": "Karthik",
+        "email": "karthik@zeddigital.net",
+        "url": "https://www.zeddigital.net"
       }
     ],
     "license": "MIT",
