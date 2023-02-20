@@ -1,6 +1,7 @@
 # README #
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/hkarthik97/library/EG25Lib.svg)](https://registry.platformio.org/libraries/hkarthik97/EG25Lib)
 This README would normally document whatever steps are necessary to get your application up and running.
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/hkarthik97A)
 
 ### What is this repository for? ###
 
