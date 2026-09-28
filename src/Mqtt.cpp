@@ -8,6 +8,39 @@ void MQTT::setUsername(String username, String password)
   _password = password;
 }
 
+void MQTT::setSSL(bool enable, String caCertPath, int sslCtxId)
+{
+  _sslEnabled = enable;
+  _caCertPath = caCertPath;
+  _sslCtxId = sslCtxId;
+}
+
+bool MQTT::mqttSslConfig()
+{
+  String ctx = String(_sslCtxId);
+  // Security level 1 verifies the broker against the CA cert; 0 encrypts without verification
+  String secLevel = _caCertPath.length() > 0 ? "1" : "0";
+  String cmds[5] = {
+      "AT+QMTCFG=\"ssl\",0,1," + ctx,
+      "AT+QSSLCFG=\"sslversion\"," + ctx + ",4",
+      "AT+QSSLCFG=\"ciphersuite\"," + ctx + ",0XFFFF",
+      "AT+QSSLCFG=\"seclevel\"," + ctx + "," + secLevel,
+      "AT+QSSLCFG=\"cacert\"," + ctx + ",\"" + _caCertPath + "\""};
+  int cmdCount = _caCertPath.length() > 0 ? 5 : 4;
+
+  for (int i = 0; i < cmdCount; i++)
+  {
+    debugMessages(cmds[i]);
+    GSMSERIAL.println(cmds[i]);
+    if (!MQTT::EG21_Response_Mqtt(1000, MQTTMODE))
+    {
+      debugMessages("SSL config failed");
+      return false;
+    }
+  }
+  return true;
+}
+
 void MQTT::setDebugMode(bool debugModeU)
 {
   debugMode = debugModeU;
@@ -49,6 +82,10 @@ bool MQTT::mqttConnect()
   {
     //    return 1;
     debugMessages("Success");
+    if (_sslEnabled && !MQTT::mqttSslConfig())
+    {
+      return false;
+    }
     debugMessages("AT+QMTOPEN=0,\"");
     debugMessages(mqttHost);
     debugMessages("\",");
@@ -62,7 +99,7 @@ bool MQTT::mqttConnect()
     {
     retryConn:
       debugMessages("Success2");
-      debugMessages("AT+QMTCONN=0,\"3\",\"" + _username + "\",\"" + _password + "\"");
+      debugMessages("AT+QMTCONN=0,\"3\",\"" + _username + "\",\"****\"");
       GSMSERIAL.println("AT+QMTCONN=0,\"3\",\"" + _username + "\",\"" + _password + "\"");
 
       debugMessages("retry mqtt connection");

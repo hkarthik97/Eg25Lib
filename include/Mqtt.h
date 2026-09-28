@@ -16,6 +16,12 @@ private:
   // Mqtt Username and password variable
   String _username;
   String _password;
+  // TLS settings (AT+QMTCFG "ssl" / AT+QSSLCFG)
+  bool _sslEnabled = false;
+  String _caCertPath;
+  int _sslCtxId = 0;
+
+  bool mqttSslConfig();
 
 public:
   String mqttHost;
@@ -38,6 +44,7 @@ public:
   bool mqttSend(String mqttMsg);
   void setMqttHost(String hostname, unsigned int port);
   void setUsername(String username, String password);
+  void setSSL(bool enable, String caCertPath = "", int sslCtxId = 0);
   //  void setMqttSub(char mqttsub[]);
   //  void setMqttPub(char mqttPub[]);
 

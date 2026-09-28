@@ -9,11 +9,17 @@ Supported Modules : EG25-G , EG21-G
 #include <Gps.h>
 #include <Mqtt.h>
 #include <WebSocket.h>
+// This example uses the ArduinoJson 5.x API (DynamicJsonBuffer, prettyPrintTo).
+// Install ArduinoJson 5.13.5, e.g. lib_deps = bblanchon/ArduinoJson@5.13.5
 #include <ArduinoJson.h>
+#if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR != 5
+#error "Basic_Example requires ArduinoJson 5.x (tested with 5.13.5)"
+#endif
 #include <ESPmDNS.h>
 
 #define MQTTHOST ""
-#define MQTTPORT 1883
+// 8883 = MQTT over TLS (see mqtt.setSSL below)
+#define MQTTPORT 8883
 #define MQTTSUBTOPIC ""
 #define LOGTOPIC ""
 #define MQTT_USERNAME ""
@@ -96,6 +102,9 @@ void setup()
   //(subscription topic)
   //  mqtt.setMqttSub(MQTTSUBTOPIC);
   mqtt.setUsername(MQTT_USERNAME, MQTT_PASSWORD);
+  // Enable TLS. Pass the modem file path of an uploaded CA cert (e.g. "UFS:cacert.pem")
+  // to also verify the broker certificate.
+  mqtt.setSSL(true);
   mqtt.mqttBegin();
 }
 
